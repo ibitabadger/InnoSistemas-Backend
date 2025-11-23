@@ -35,7 +35,7 @@ public class CorsConfig implements WebMvcConfigurer {
             "http://127.0.0.1:*",
             "https://127.0.0.1:*",
             "https://*.app.github.dev",
-            "https://jubilant-pancake-5w5j6ggxrv246jj-8080.app.github.dev"
+            "https://studious-waffle-pvv4jv9qqx4f9r-8080.app.github.dev"
         ));
         
         // Permitir métodos HTTP comunes

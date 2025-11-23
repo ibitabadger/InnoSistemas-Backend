@@ -32,7 +32,7 @@ public class OpenApiConfig {
                                 .url("https://localhost:8080")
                                 .description("Servidor de desarrollo local HTTPS"),
                         new Server()
-                                .url("https://jubilant-pancake-5w5j6ggxrv246jj-8080.app.github.dev")
+                                .url("https://studious-waffle-pvv4jv9qqx4f9r-8080.app.github.dev")
                                 .description("Servidor GitHub Codespaces")
                 ))
                 .components(new Components().addSecuritySchemes(securitySchemeName,

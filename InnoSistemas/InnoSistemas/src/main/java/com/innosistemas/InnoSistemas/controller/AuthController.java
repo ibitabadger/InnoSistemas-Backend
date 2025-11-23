@@ -56,14 +56,14 @@ public class AuthController {
             String token = jwtService.generateToken(request.username(), roles);
             var user = userRepository.findByUsername(request.username()).orElseThrow();
             List<String> roleNames = user.getRoles().stream().map(Role::getName).toList();
-            var me = new MeResponse(user.getUsername(), user.getEmail(), roleNames);
+            var me = new MeResponse(user.getId(), user.getUsername(), user.getEmail(), roleNames);
             return ResponseEntity.ok(new LoginResponse(token, "Bearer", 60, me));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(401).body("Usuario o contraseña incorrectos");
         }
     }
 
-    public record MeResponse(String username, String email, List<String> roles) {}
+    public record MeResponse(Long id, String username, String email, List<String> roles) {}
 
     @Operation(summary = "Usuario actual", description = "Devuelve información del usuario autenticado",
             security = { @SecurityRequirement(name = "bearerAuth") })
@@ -78,7 +78,7 @@ public class AuthController {
         var user = userRepository.findByUsername(principal.getUsername()).orElse(null);
         if (user == null) return ResponseEntity.status(404).build();
         List<String> roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
-        return ResponseEntity.ok(new MeResponse(user.getUsername(), user.getEmail(), roles));
+        return ResponseEntity.ok(new MeResponse(user.getId(), user.getUsername(), user.getEmail(), roles));
     }
 
     @Operation(summary = "Cerrar sesión", description = "Logout stateless: el frontend debe descartar el token")
